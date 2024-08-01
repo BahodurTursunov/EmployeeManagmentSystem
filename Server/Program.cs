@@ -1,7 +1,7 @@
-
 using Microsoft.EntityFrameworkCore;
 using ServerLibrary.Data;
 using ServerLibrary.Helpers;
+using ServerLibrary.Repositories.Contracts;
 
 namespace Server
 {
@@ -25,6 +25,7 @@ namespace Server
 
             builder.Services.Configure<JwtSection>(builder.Configuration.GetSection("JwtSection"));
 
+            builder.Services.AddScoped<IUserAccount, UserAccountRepository>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
