@@ -10,7 +10,7 @@ using ServerLibrary.Repositories.Contracts;
 
 namespace ServerLibrary.Repositories.Implementation
 {
-    internal class UserAccountRepository(IOptions<JwtSection> config, AppDbContext appDbContext) : IUserAccount
+    public class UserAccountRepository(IOptions<JwtSection> config, AppDbContext appDbContext) : IUserAccount
     {
 
         public async Task<GeneralResponse> CreateAsync(Register user)
@@ -50,11 +50,6 @@ namespace ServerLibrary.Repositories.Implementation
             return new GeneralResponse(true, "Account created!");
         }
 
-        public async Task<LoginResponse> SignInAsync(Login user)
-        {
-
-        }
-
         private async Task<ApplicationUser> FindUserByEmail(string email) => await appDbContext.ApplicationUsers.FirstOrDefaultAsync(_ => _.Email!.ToLower()!.Equals(email!.ToLower()));
 
 
@@ -63,6 +58,11 @@ namespace ServerLibrary.Repositories.Implementation
             var result = appDbContext.Add(model!);
             await appDbContext.SaveChangesAsync();
             return (T)result.Entity;
+        }
+
+        public Task<LoginResponse> CreateAsync(Login user)
+        {
+            throw new NotImplementedException();
         }
     }
 }
