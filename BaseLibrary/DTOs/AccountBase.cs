@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace BaseLibrary.DTOs
 {
@@ -10,7 +11,7 @@ namespace BaseLibrary.DTOs
         public string? Email { get; set; }
 
         [DataType(DataType.Password)]
-        [EmailAddress]
+        [PasswordPropertyText]
         [Required]
         public string? Password { get; set; }
     }
