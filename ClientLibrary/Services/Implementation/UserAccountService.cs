@@ -2,18 +2,29 @@
 using BaseLibrary.Responses;
 using ClientLibrary.Helpers;
 using ClientLibrary.Services.Contracts;
+using Server;
+using System.Net.Http.Json;
 
 namespace ClientLibrary.Services.Implementation
 {
     public class UserAccountService(GetHttpClient getHttpClient) : IUserAccountService
     {
-        public Task<GeneralResponse> CreateAsync(Register user)
+        public const string AuthUrl = "api/authentication";
+        public async Task<GeneralResponse> CreateAsync(Register user)
         {
-            throw new NotImplementedException();
+            var httpClient = getHttpClient.GetPublicHttpClient();
+            var result = await httpClient.PostAsJsonAsync($"{AuthUrl}/register", user);
+            if (!result.IsSuccessStatusCode) return new GeneralResponse(false, "Error Occured");
+
+            return await result.Content.ReadFromJsonAsync<GeneralResponse>()!;
         }
-        public Task<LoginResponse> SignInAsync(Login user)
+        public async Task<LoginResponse> SignInAsync(Login user)
         {
-            throw new NotImplementedException();
+            var httpClient = getHttpClient.GetPublicHttpClient();
+            var result = await httpClient.PostAsJsonAsync($"{AuthUrl}/login", user);
+            if (!result.IsSuccessStatusCode) return new LoginResponse(false, "Error Occured");
+
+            return await result.Content.ReadFromJsonAsync<LoginResponse>()!;
         }
 
         public Task<LoginResponse> RefreshTokenAsync(RefreshToken token)
@@ -21,5 +32,10 @@ namespace ClientLibrary.Services.Implementation
             throw new NotImplementedException();
         }
 
+        public async Task<WeatherForecast[]> GetWeatherForecast()
+        {
+            var httpClient = await getHttpClient.GetPrivateHttpClient();
+            var result = await httpClient.GetFromJsonAsync<WeatherForecast[]>
+        }
     }
 }
