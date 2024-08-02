@@ -31,5 +31,7 @@ namespace Server.Controllers
             var result = await accountInterface.RefreshTokenAsync(token);
             return Ok(result);
         }
+
+
     }
 }
