@@ -2,7 +2,6 @@
 using BaseLibrary.Responses;
 using ClientLibrary.Helpers;
 using ClientLibrary.Services.Contracts;
-using Server;
 using System.Net.Http.Json;
 
 namespace ClientLibrary.Services.Implementation
@@ -32,11 +31,5 @@ namespace ClientLibrary.Services.Implementation
             throw new NotImplementedException();
         }
 
-        public async Task<WeatherForecast[]> GetWeatherForecast()
-        {
-            var httpClient = await getHttpClient.GetPrivateHttpClient();
-            var result = await httpClient.GetFromJsonAsync<WeatherForecast[]>("api/weatherforecast");
-            return result!;
-        }
     }
 }
