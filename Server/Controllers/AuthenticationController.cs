@@ -8,7 +8,7 @@ namespace Server.Controllers
     [Route("[controller]")]
     public class AuthenticationController(IUserAccount accountInterface) : ControllerBase
     {
-        [HttpPost("register")]
+        [HttpPost("/identity/account/register")]
         public async Task<IActionResult> CreateAsync(Register user)
         {
             if (user == null) return BadRequest("Model is empty");
@@ -16,7 +16,7 @@ namespace Server.Controllers
             return Ok(result);
         }
 
-        [HttpPost("login")]
+        [HttpPost("/identity/account/login")]
         public async Task<IActionResult> SignInAsync(Login user)
         {
             if (user == null) return BadRequest("Model is empty");
@@ -31,7 +31,5 @@ namespace Server.Controllers
             var result = await accountInterface.RefreshTokenAsync(token);
             return Ok(result);
         }
-
-
     }
 }

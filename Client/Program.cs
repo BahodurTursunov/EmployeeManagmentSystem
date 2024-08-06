@@ -16,11 +16,12 @@ namespace Client
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
-
+            builder.Services.AddTransient<CustomHttpHandler>();
             builder.Services.AddHttpClient("SystemApiClient", client =>
             {
                 client.BaseAddress = new Uri("https://localhost:7021");
-            });
+            }).AddHttpMessageHandler<CustomHttpHandler>();
+
             // builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7021") });
             builder.Services.AddAuthorizationCore();
             builder.Services.AddBlazoredLocalStorage();

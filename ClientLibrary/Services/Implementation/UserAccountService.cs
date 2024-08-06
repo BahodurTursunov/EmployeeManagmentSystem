@@ -8,7 +8,7 @@ namespace ClientLibrary.Services.Implementation
 {
     public class UserAccountService(GetHttpClient getHttpClient) : IUserAccountService
     {
-        public const string AuthUrl = "api/authentication";
+        public const string AuthUrl = "identity/account";
         public async Task<GeneralResponse> CreateAsync(Register user)
         {
             var httpClient = getHttpClient.GetPublicHttpClient();
