@@ -30,6 +30,5 @@ namespace ClientLibrary.Services.Implementation
         {
             throw new NotImplementedException();
         }
-
     }
 }
